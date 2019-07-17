@@ -1,0 +1,42 @@
+@import "variables";
+
+.hello-week {
+
+  .week {
+    color: $color-week;
+    font-size: map-get($typography-font-size, week);
+  }
+
+  .day {
+
+    &.is-weekend {
+      color: $color-weekend;
+    }
+
+    &.is-highlight {
+      background-color: $color-highlight;
+      color: $color-white;
+    }
+
+    &.is-today {
+      background-color: $color-today;
+      color: $color-white;
+    }
+
+    &.is-selected {
+      background-color: $color-selected !important;
+      color: $color-white !important;
+    }
+
+     &.is-begin-range,
+     &.is-end-range {
+      background-color: $color-range !important;
+      color: $color-white !important;
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: .33;
+    }
+  }
+}

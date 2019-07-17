@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+  },
+  "exclude": [
+    "node_modules",
+    "test/unit/"
+  ]
+}

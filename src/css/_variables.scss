@@ -1,0 +1,23 @@
+$color-white: #fff !default;
+$color-selected :#7fcbc3 !default;
+$color-range: #42a298 !default;
+$color-week :#42a298 !default;
+$color-highlight :#8fbc8f !default;
+$color-today: #ff3860 !default;
+$color-weekend: #ff3860 !default;
+
+$transition: .2s cubic-bezier(.25, .1, .49, .9) !default;
+$baseline: 1em !default;
+$day-width: 100% / 7 !default;
+
+$typography-font-weight: (
+  light: 300,
+  regular: 400,
+  bold: 700
+) !default;
+
+$typography-font-size: (
+  base: 1em,
+  period: 1.6em,
+  week: 1.2em
+) !default;
