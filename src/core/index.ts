@@ -1,4 +1,5 @@
-import { addClass, creatElement, removeClass, setAttr, setStyle, toggleClass } from './element';
+import { creatElement } from '../vdom/create-element';
+import { addClass, removeClass, setAttr, setStyle, toggleClass } from '../vdom/patch';
 import { cssClasses, cssStates, daysWeek } from '../shared/constants';
 import { extend, getIndexForEventTarget } from '../shared/util';
 import { formatDate, humanToTimestamp, timestampToHuman } from './format';
