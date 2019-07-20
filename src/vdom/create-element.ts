@@ -5,7 +5,7 @@
  * @param {string} textNode
  * @public
  */
-export function creatElement(
+export function createElement(
         className: string,
         parentElement: HTMLElement,
         textNode?: string | undefined

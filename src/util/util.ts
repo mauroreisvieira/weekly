@@ -1,0 +1,21 @@
+export function noop(a?: any) {}
+
+export function isDef(v: any): boolean {
+  return v !== undefined && v !== null;
+}
+
+export function isTrue(v: any): boolean {
+  return v === true;
+}
+
+export function isFalse(v: any): boolean {
+  return v === false;
+}
+
+export function isObject(obj: mixed): boolean {
+  return obj !== null && typeof obj === 'object';
+}
+
+export function isString(val: string): boolean {
+  return typeof val === 'string';
+}
