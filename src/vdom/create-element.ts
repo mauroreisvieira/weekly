@@ -1,22 +1,27 @@
 /**
  * Create HTML elements for Hello Week.
- * @param {string}      className
- * @param {HTMLElement} parentElement
- * @param {string} textNode
- * @public
+ *
+ * @param {string}     className
+ * @param {string}     textNode
  */
-export function createElement(
-        className: string,
-        parentElement: HTMLElement,
-        textNode?: string | undefined
-    ) {
+export function createElement(className: string, content?: string | undefined): HTMLElement {
 
     const elem = document.createElement('div');
     elem.classList.add(className);
-    if (!textNode) {
-        const text = document.createTextNode(textNode as string);
-        elem.appendChild(text);
+
+    if (!content) {
+        elem.appendChild(document.createTextNode(content as string));
     }
-    parentElement.appendChild(elem);
+
     return elem;
+}
+
+/**
+ * Append HTML element inside other HTML element.
+ *
+ * @param      {HTMLElement}  element
+ * @param      {HTMLElement}  parentElement
+ */
+export function append(element: HTMLElement, parentElement: HTMLElement) {
+    parentElement.appendChild(elem);
 }

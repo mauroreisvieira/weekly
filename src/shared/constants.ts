@@ -13,9 +13,7 @@ export const cssClasses = {
 
 /* @enum {string} */
 export const cssStates = {
-    IS_BEGIN_RANGE: 'is-begin-range',
     IS_DISABLED: 'is-disabled',
-    IS_END_RANGE: 'is-end-range',
     IS_HIGHLIGHT: 'is-highlight',
     IS_SELECTED: 'is-selected',
     IS_TODAY: 'is-today',

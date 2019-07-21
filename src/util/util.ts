@@ -1,5 +1,3 @@
-export function noop(a?: any) {}
-
 export function isDef(v: any): boolean {
   return v !== undefined && v !== null;
 }
@@ -12,7 +10,7 @@ export function isFalse(v: any): boolean {
   return v === false;
 }
 
-export function isObject(obj: mixed): boolean {
+export function isObject(obj: any): boolean {
   return obj !== null && typeof obj === 'object';
 }
 

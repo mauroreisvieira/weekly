@@ -271,26 +271,26 @@ export class Weekly {
         this.date = new Date();
         this.defaultDate = new Date();
 
-         if (this.options.defaultDate) {
+        if (this.options.defaultDate) {
              this.date = new Date(this.options.defaultDate);
              this.defaultDate = new Date(this.options.defaultDate);
              this.defaultDate.setDate(this.defaultDate.getDate());
-         }
-         this.date.setDate(1);
+        }
+        this.date.setDate(1);
 
-         if (this.options.minDate) {
-             this.setMinDate(this.options.minDate);
-         }
+        if (this.options.minDate) {
+            this.setMinDate(this.options.minDate);
+        }
 
-         if (this.options.maxDate) {
-             this.setMaxDate(this.options.maxDate);
-         }
+        if (this.options.maxDate) {
+            this.setMaxDate(this.options.maxDate);
+        }
 
-         this.mounted();
-         this.options.onLoad.call(this);
-         if (callback) {
-             callback.call(this);
-         }
+        this.mounted();
+        this.options.onLoad.call(this);
+        if (callback) {
+            callback.call(this);
+        }
      }
 
     /**
@@ -379,12 +379,11 @@ export class Weekly {
             locked: false,
             isToday: false,
             isSelected: false,
-            isHighlight: false,
-            element: false,
+            isHighlight: false
         };
 
         this.days = this.days || {};
-        newDay.textContent = dayOptions.day;
+        newDay.textContent = String(dayOptions.day);
         addClass(newDay, cssClasses.DAY);
 
         if (dayOptions.day === 1) {
@@ -443,7 +442,6 @@ export class Weekly {
             this.calendar.month.appendChild(newDay);
         }
 
-        dayOptions.element = newDay;
         this.days[dayOptions.day] = dayOptions;
     }
 
@@ -479,7 +477,7 @@ export class Weekly {
      private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
          for (const key in this.daysHighlight) {
              if (this.daysHighlight[key].days[0] instanceof Array) {
-                 this.daysHighlight[key].days.map((date: any, index: number) => {
+                 this.daysHighlight[key].days.map((date: any) => {
                      if (dayOptions.timestamp >= humanToTimestamp(date[0]) &&
                          dayOptions.timestamp <= humanToTimestamp(date[1])) {
                          this.setStyleDayHighlight(newDay, key, dayOptions);
