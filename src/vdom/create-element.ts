@@ -23,5 +23,5 @@ export function createElement(className: string, content?: string | undefined): 
  * @param      {HTMLElement}  parentElement
  */
 export function append(element: HTMLElement, parentElement: HTMLElement) {
-    parentElement.appendChild(elem);
+    parentElement.appendChild(element);
 }

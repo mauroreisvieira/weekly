@@ -20,7 +20,7 @@ export const config = {
     nav: ['◀', '▶'],
     range: false,
     rtl: false,
-    selector: '.hello-week',
+    selector: '.weekly',
     todayHighlight: true,
     weekShort: true,
     weekStart: 0,

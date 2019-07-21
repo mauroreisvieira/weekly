@@ -1,4 +1,4 @@
-import { createElement } from '../vdom/create-element';
+import { createElement, append } from '../vdom/create-element';
 import { addClass, removeClass, setAttr, setStyle, toggleClass } from '../vdom/patch';
 import { cssClasses, cssStates, daysWeek } from '../shared/constants';
 import { error, extend, isString, getIndexForEventTarget } from '../util/index';
@@ -22,6 +22,7 @@ export class Weekly {
 
     constructor(options: any = {}) {
         this.options = extend(options, config);
+        console.log(this.options);
         this.initOptions = extend(options, config);
         this.selector = isString(this.options.selector) ? document.querySelector(this.options.selector) :
             this.options.selector;
@@ -43,18 +44,21 @@ export class Weekly {
         if (this.options.nav) {
             this.calendar.prevMonth = createElement(
                 cssClasses.PREV,
-                this.calendar.navigation,
                 this.options.nav[0]
             );
 
             this.calendar.period = createElement(
                 cssClasses.PERIOD,
-                this.calendar.navigation
             );
+
             this.calendar.nextMonth = createElement(
                 cssClasses.NEXT,
-                this.calendar.navigation, this.options.nav[1]
+                this.options.nav[1]
             );
+
+            append(this.calendar.prevMonth, this.calendar.navigation);
+            append(this.calendar.period, this.calendar.navigation);
+            append(this.calendar.nextMonth, this.calendar.navigation);
 
             this.calendar.prevMonth.addEventListener('click', () => { this.prev(); });
             this.calendar.nextMonth.addEventListener('click', () => { this.next(); });
