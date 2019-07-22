@@ -11,6 +11,9 @@ export const cssClasses = {
     WEEK: 'week',
 };
 
+export const strings = {
+}
+
 /* @enum {string} */
 export const cssStates = {
     IS_DISABLED: 'is-disabled',

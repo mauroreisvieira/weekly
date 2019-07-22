@@ -5,11 +5,10 @@
  * @param {string}     textNode
  */
 export function createElement(className: string, content?: string | undefined): HTMLElement {
-
     const elem = document.createElement('div');
     elem.classList.add(className);
 
-    if (!content) {
+    if (content) {
         elem.appendChild(document.createTextNode(content as string));
     }
 

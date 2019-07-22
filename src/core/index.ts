@@ -1,7 +1,7 @@
 import { createElement, append } from '../vdom/create-element';
 import { addClass, removeClass, setAttr, setStyle, toggleClass } from '../vdom/patch';
-import { cssClasses, cssStates, daysWeek } from '../shared/constants';
-import { error, extend, isString, getIndexForEventTarget } from '../util/index';
+import { cssClasses, cssStates, daysWeek, strings } from '../shared/constants';
+import { error, extend, isString, getIndexForEventTarget, toArray } from '../util/index';
 import { formatDate, humanToTimestamp, timestampToHuman } from './format';
 import { config } from './config';
 
@@ -36,8 +36,7 @@ export class Weekly {
         }
 
         this.calendar.navigation = createElement(
-            cssClasses.NAVIGATION,
-            this.selector
+            cssClasses.NAVIGATION
         );
 
         if (this.options.nav) {
@@ -45,6 +44,7 @@ export class Weekly {
                 cssClasses.PREV,
                 this.options.nav[0]
             );
+
             this.calendar.period = createElement(
                 cssClasses.PERIOD,
             );
@@ -53,7 +53,7 @@ export class Weekly {
                 cssClasses.NEXT,
                 this.options.nav[1]
             );
-            console.log(this.calendar.period);
+
             append(this.calendar.navigation, this.selector);
             append(this.calendar.prevMonth, this.calendar.navigation);
             append(this.calendar.period, this.calendar.navigation);
@@ -445,7 +445,7 @@ export class Weekly {
         }
 
         if (this.calendar.month) {
-            this.calendar.month.appendChild(newDay);
+            append(newDay, this.calendar.month);
         }
 
         this.days[dayOptions.day] = dayOptions;
@@ -456,7 +456,7 @@ export class Weekly {
      * @param      {HTMLElement}  newDay
      * @param      {any}  dayOptions
      */
-     private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
+    private setDaysDisable(newDay: HTMLElement, dayOptions: any): void {
         if (this.options.disableDates[0] instanceof Array) {
             this.options.disableDates.map((date: any) => {
                 if (dayOptions.timestamp >= humanToTimestamp(date[0]) &&
@@ -466,38 +466,38 @@ export class Weekly {
                 }
             });
         } else {
-             this.options.disableDates.map((date: any) => {
-                 if (dayOptions.timestamp === humanToTimestamp(date)) {
-                     addClass(newDay, cssStates.IS_DISABLED);
-                     dayOptions.locked = true;
-                 }
-             });
-         }
-     }
+            this.options.disableDates.map((date: any) => {
+                if (dayOptions.timestamp === humanToTimestamp(date)) {
+                    addClass(newDay, cssStates.IS_DISABLED);
+                    dayOptions.locked = true;
+                }
+            });
+        }
+    }
 
     /**
      * Set day highlight.
      * @param      {HTMLElement}  newDay
      * @param      {any}  dayOptions
      */
-     private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
-         for (const key in this.daysHighlight) {
-             if (this.daysHighlight[key].days[0] instanceof Array) {
-                 this.daysHighlight[key].days.map((date: any) => {
-                     if (dayOptions.timestamp >= humanToTimestamp(date[0]) &&
-                         dayOptions.timestamp <= humanToTimestamp(date[1])) {
-                         this.setStyleDayHighlight(newDay, key, dayOptions);
-                 }
-             });
-             } else {
-                 this.daysHighlight[key].days.map((date: any) => {
-                     if (dayOptions.timestamp === humanToTimestamp(date)) {
-                         this.setStyleDayHighlight(newDay, key, dayOptions);
-                     }
-                 });
-             }
-         }
-     }
+    private setDayHighlight(newDay: HTMLElement, dayOptions: any): void {
+        for (const key in this.daysHighlight) {
+            if (this.daysHighlight[key].days[0] instanceof Array) {
+                this.daysHighlight[key].days.map((date: any) => {
+                    if (dayOptions.timestamp >= humanToTimestamp(date[0]) &&
+                        dayOptions.timestamp <= humanToTimestamp(date[1])) {
+                        this.setStyleDayHighlight(newDay, key, dayOptions);
+                    }
+                });
+            } else {
+                this.daysHighlight[key].days.map((date: any) => {
+                    if (dayOptions.timestamp === humanToTimestamp(date)) {
+                        this.setStyleDayHighlight(newDay, key, dayOptions);
+                    }
+                });
+            }
+        }
+    }
 
     /**
      * Sets styles for days highlight.
@@ -527,7 +527,7 @@ export class Weekly {
      }
 
      private weekAsString(): any {
-         const options = { month: this.options.weekShort ? 'short' : 'long' };
+         const options = { weekday: this.options.weekShort ? 'short' : 'long' };
          return this.date.toLocaleString(this.options.lang, options );
      }
 
@@ -536,9 +536,8 @@ export class Weekly {
          if (this.calendar.period) {
              this.calendar.period.innerHTML = this.monthsAsString() + ' ' + this.date.getFullYear();
          }
-         /** define week format */
          this.calendar.week.textContent = '';
-         for (let i = this.options.weekStart; i < 7; i++) {
+         for (let i = this.options.weekStart; i < toArray(daysWeek).length; i++) {
              listDays.push(i);
          }
 

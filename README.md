@@ -1,5 +1,7 @@
 # Weekly
 
+<p align="center">Weekly <b>10kB</b>  calendar in pure JavaScript.</p>
+
 ## Quick start
 
 #### Installation
@@ -33,11 +35,11 @@ Default values are presented below.
 ```js
 new Weekly({
     selector: '.weekly',
-    lang: 'pt-PT',
+    lang: 'en',
     format: {},
     weekShort: true,
     monthShort: false,
-    multiplePick: false,
+    multiplePick: true,
     defaultDate: null,
     todayHighlight: true,
     disablePastDays: false,

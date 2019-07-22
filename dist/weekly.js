@@ -7,7 +7,7 @@
 function createElement(className, content) {
     const elem = document.createElement('div');
     elem.classList.add(className);
-    if (!content) {
+    if (content) {
         elem.appendChild(document.createTextNode(content));
     }
     return elem;
@@ -69,6 +69,10 @@ const daysWeek = {
     WEDNESDAY: 3,
 };
 
+function error(msg) {
+    throw new Error(`[Weekly Error]: ${msg}`);
+}
+
 function getIndexForEventTarget(daysOfMonth, target) {
     return Array.prototype.slice.call(daysOfMonth).indexOf(target) + 1;
 }
@@ -81,13 +85,11 @@ function extend(to, from) {
     }
     return to;
 }
-
-function error(msg) {
-    throw new Error(`[Weekly Error]: ${msg}`);
-}
-
 function isString(val) {
     return typeof val === 'string';
+}
+function toArray(obj) {
+    return Object.values(obj);
 }
 
 const config = {
@@ -168,12 +170,11 @@ class Weekly {
         if (this.options.selector !== cssClasses.CALENDAR) {
             addClass(this.selector, cssClasses.CALENDAR);
         }
-        this.calendar.navigation = createElement(cssClasses.NAVIGATION, this.selector);
+        this.calendar.navigation = createElement(cssClasses.NAVIGATION);
         if (this.options.nav) {
             this.calendar.prevMonth = createElement(cssClasses.PREV, this.options.nav[0]);
             this.calendar.period = createElement(cssClasses.PERIOD);
             this.calendar.nextMonth = createElement(cssClasses.NEXT, this.options.nav[1]);
-            console.log(this.calendar.period);
             append(this.calendar.navigation, this.selector);
             append(this.calendar.prevMonth, this.calendar.navigation);
             append(this.calendar.period, this.calendar.navigation);
@@ -512,7 +513,7 @@ class Weekly {
             this.setDayHighlight(newDay, dayOptions);
         }
         if (this.calendar.month) {
-            this.calendar.month.appendChild(newDay);
+            append(newDay, this.calendar.month);
         }
         this.days[dayOptions.day] = dayOptions;
     }
@@ -589,7 +590,7 @@ class Weekly {
         return this.date.toLocaleString(this.options.lang, options);
     }
     weekAsString() {
-        const options = { month: this.options.weekShort ? 'short' : 'long' };
+        const options = { weekday: this.options.weekShort ? 'short' : 'long' };
         return this.date.toLocaleString(this.options.lang, options);
     }
     mounted() {
@@ -597,9 +598,8 @@ class Weekly {
         if (this.calendar.period) {
             this.calendar.period.innerHTML = this.monthsAsString() + ' ' + this.date.getFullYear();
         }
-        /** define week format */
         this.calendar.week.textContent = '';
-        for (let i = this.options.weekStart; i < 7; i++) {
+        for (let i = this.options.weekStart; i < toArray(daysWeek).length; i++) {
             listDays.push(i);
         }
         for (let i = 0; i < this.options.weekStart; i++) {
