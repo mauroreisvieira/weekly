@@ -42,7 +42,7 @@ function toggleClass(el, className) {
 
 /* @enum {string} */
 const cssClasses = {
-    CALENDAR: 'hello-week',
+    CALENDAR: 'weekly',
     DAY: 'day',
     MONTH: 'month',
     NAVIGATION: 'navigation',
@@ -446,7 +446,7 @@ class Weekly {
         this.selectDay(() => { });
     }
     /**
-     * Create days inside hello-week
+     * Create days inside weekly
      * @param {Date} date
      */
     createDay(date) {
@@ -587,7 +587,8 @@ class Weekly {
      * @return     {object}
      */
     monthsAsString(monthIndex) {
-        return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+        const options = { month: this.options.monthShort ? 'short' : 'long' };
+        return this.date.toLocaleString(this.options.lang, options);
     }
     /**
      * @param      {number}  weekIndex

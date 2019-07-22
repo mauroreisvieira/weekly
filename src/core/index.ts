@@ -369,7 +369,7 @@ export class Weekly {
     }
 
     /**
-     * Create days inside hello-week
+     * Create days inside weekly
      * @param {Date} date
      */
     private createDay(date: Date): void {
@@ -523,8 +523,9 @@ export class Weekly {
      * @param      {number}  monthIndex
      * @return     {object}
      */
-     private monthsAsString(monthIndex: number): any {
-         return this.options.monthShort ? this.langs.monthsShort[monthIndex] : this.langs.months[monthIndex];
+     private monthsAsString(): any {
+         const options = { month: this.options.monthShort ? 'short' : 'long' };
+         return this.date.toLocaleString(this.options.lang, options );
      }
 
     /**
@@ -538,7 +539,7 @@ export class Weekly {
      private mounted(): void {
          const listDays: number[] = [];
          if (this.calendar.period) {
-             this.calendar.period.innerHTML = this.monthsAsString(this.date.getMonth()) + ' ' + this.date.getFullYear();
+             this.calendar.period.innerHTML = this.monthsAsString() + ' ' + this.date.getFullYear();
          }
          /** define week format */
          this.calendar.week.textContent = '';
