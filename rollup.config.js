@@ -12,14 +12,7 @@ export default {
     },
     plugins: [
         typescript(),
-        babel({ runtimeHelpers: true }),
-        serve({
-            open: true,
-            contentBase: "",
-            host: "127.0.0.1",
-            port: 8000,
-        }),
-        livereload(),
+        babel({ runtimeHelpers: true })
     ],
     watch: {
         chokidar: false,

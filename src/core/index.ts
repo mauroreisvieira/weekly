@@ -22,7 +22,6 @@ export class Weekly {
 
     constructor(options: any = {}) {
         this.options = extend(options, config);
-        console.log(this.options);
         this.initOptions = extend(options, config);
         this.selector = isString(this.options.selector) ? document.querySelector(this.options.selector) :
             this.options.selector;
@@ -46,7 +45,6 @@ export class Weekly {
                 cssClasses.PREV,
                 this.options.nav[0]
             );
-
             this.calendar.period = createElement(
                 cssClasses.PERIOD,
             );
@@ -55,7 +53,8 @@ export class Weekly {
                 cssClasses.NEXT,
                 this.options.nav[1]
             );
-
+            console.log(this.calendar.period);
+            append(this.calendar.navigation, this.selector);
             append(this.calendar.prevMonth, this.calendar.navigation);
             append(this.calendar.period, this.calendar.navigation);
             append(this.calendar.nextMonth, this.calendar.navigation);
@@ -66,12 +65,15 @@ export class Weekly {
         } else {
             this.calendar.period = createElement(
                 cssClasses.PERIOD,
-                this.calendar.navigation
             );
+            append(this.calendar.period, this.calendar.navigation);
         }
 
-        this.calendar.week = createElement(cssClasses.WEEK, this.selector);
-        this.calendar.month = createElement(cssClasses.MONTH, this.selector);
+        this.calendar.week = createElement(cssClasses.WEEK);
+        this.calendar.month = createElement(cssClasses.MONTH);
+
+        append(this.calendar.week, this.selector);
+        append(this.calendar.month, this.selector);
 
         if (this.options.rtl) {
             addClass(this.calendar.week, cssClasses.RTL);
@@ -519,21 +521,14 @@ export class Weekly {
          dayOptions.isHighlight = true;
      }
 
-    /**
-     * @param      {number}  monthIndex
-     * @return     {object}
-     */
      private monthsAsString(): any {
          const options = { month: this.options.monthShort ? 'short' : 'long' };
          return this.date.toLocaleString(this.options.lang, options );
      }
 
-    /**
-     * @param      {number}  weekIndex
-     * @return     {object}
-     */
-     private weekAsString(weekIndex: number): any {
-         return this.options.weekShort ? this.langs.daysShort[weekIndex] : this.langs.days[weekIndex];
+     private weekAsString(): any {
+         const options = { month: this.options.weekShort ? 'short' : 'long' };
+         return this.date.toLocaleString(this.options.lang, options );
      }
 
      private mounted(): void {
@@ -543,7 +538,7 @@ export class Weekly {
          }
          /** define week format */
          this.calendar.week.textContent = '';
-         for (let i = this.options.weekStart; i < this.langs.daysShort.length; i++) {
+         for (let i = this.options.weekStart; i < 7; i++) {
              listDays.push(i);
          }
 
@@ -552,7 +547,7 @@ export class Weekly {
          }
 
          for (const day of listDays) {
-             this.creatWeek(this.weekAsString(day));
+             this.creatWeek(this.weekAsString());
          }
 
          this.createMonth();
