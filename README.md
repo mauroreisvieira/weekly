@@ -1,8 +1,6 @@
 # Weekly
 
-Lightweight and simple calendar in pure JavaScript based on Hello-Week.
-
-<p align="center">Weekly <b>10kB</b> calendar in pure JavaScript.</p>
+Lightweight **(~10kB)** and simple calendar in pure JavaScript based on Hello-Week.
 
 ## Quick start
 
